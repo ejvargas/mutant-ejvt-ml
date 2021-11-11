@@ -1,0 +1,1 @@
+web: java -jar target/mutant-ejvt-ml-1.0.jar
