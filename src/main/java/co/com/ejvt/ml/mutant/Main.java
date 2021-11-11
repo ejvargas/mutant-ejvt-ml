@@ -132,17 +132,4 @@ public class Main {
     }
   }
   
-  @Configuration
-  public class JacksonPreetyPrintConfiguration extends WebMvcConfigurationSupport {
-      @Override
-      protected void extendMessageConverters( List<HttpMessageConverter<?>> converters ) {
-          for ( HttpMessageConverter<?> converter : converters ) {
-              if ( converter instanceof MappingJackson2HttpMessageConverter) {
-                  MappingJackson2HttpMessageConverter jacksonConverter = (MappingJackson2HttpMessageConverter) converter;
-                  jacksonConverter.setPrettyPrint( true );
-              }
-          }
-      }
-  }
-
 }
