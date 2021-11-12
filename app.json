@@ -1,5 +1,5 @@
 {
-  "name": "Mutant Challenge - MeLi",
-  "description": "A barebones Java app, which can easily be deployed to Heroku.",
+  "name": "Mutant Challenge - ML",
+  "description": "App for Cahllenge ML.",
   "addons": [ "heroku-postgresql" ]
 }

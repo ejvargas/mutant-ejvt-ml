@@ -11,9 +11,9 @@ This application is based on the [Getting Started with Java on Heroku](https://d
 Make sure you have Java and Maven installed.  Also, install the [Heroku CLI](https://cli.heroku.com/).
 
 ```sh
-$ git clone https://git.heroku.com/ejvtml.git
+$ git clone https://github.com/ejvargas/mutant-ejvt-ml.git
 $ cd mutant-ejvt-ml
-$ mvn install
+$ mvn clean install
 $ heroku local:start
 ```
 

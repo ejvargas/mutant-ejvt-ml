@@ -24,33 +24,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 
-@RestController
-@SpringBootApplication
+//@RestController
+//@SpringBootApplication
 public class Main {
 
   @Value("${spring.datasource.url}")
@@ -60,45 +54,45 @@ public class Main {
   private DataSource dataSource;
 
   public static void main(String[] args) throws Exception {
-    SpringApplication.run(Main.class, args);
+    //SpringApplication.run(Main.class, args);
   }
 
-  @RequestMapping("/")
-  String index() {
-    return "";
-  }
-
-  @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Ok"),
-    @ApiResponse(code = 403, message = "Forbidden")})
-  @ResponseBody
-  @RequestMapping(value="/mutant", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-  public ResponseEntity<?> mutant(@RequestBody String body) {
-	  if (isMutant(body))
-	  	return ResponseEntity.status(HttpStatus.OK).body(null);
-	  else
-		  return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-  }
-  
-  @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Ok")})
-  @ResponseBody
-  @RequestMapping(value="/stats", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-  public ResponseEntity<String> statistics() {
-  	return ResponseEntity.status(HttpStatus.OK).body(getStatistics());
-  }
-
-  @Bean
-  public boolean isMutant(String dna) {
-   
-      return true;
-  }
-  
-  @Bean
-  public String getStatistics() {
-   
-      return "{ Success }";
-  }
+//  @RequestMapping("/")
+//  String index() {
+//    return "";
+//  }
+//
+//  @ApiResponses(value = {
+//    @ApiResponse(code = 200, message = "Ok"),
+//    @ApiResponse(code = 403, message = "Forbidden")})
+//  @ResponseBody
+//  @RequestMapping(value="/mutant", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+//  public ResponseEntity<?> mutant(@RequestBody String body) {
+//	  if (isMutant(body))
+//	  	return ResponseEntity.status(HttpStatus.OK).body(null);
+//	  else
+//		  return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+//  }
+//  
+//  @ApiResponses(value = {
+//    @ApiResponse(code = 200, message = "Ok")})
+//  @ResponseBody
+//  @RequestMapping(value="/stats", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+//  public ResponseEntity<String> statistics() {
+//  	return ResponseEntity.status(HttpStatus.OK).body(getStatistics());
+//  }
+//
+//  @Bean
+//  public boolean isMutant(String dna) {
+//   
+//      return true;
+//  }
+//  
+//  @Bean
+//  public String getStatistics() {
+//   
+//      return "{ Success }";
+//  }
 
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
