@@ -26,8 +26,6 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
 
 @RestController
@@ -51,7 +49,6 @@ public class ApiService {
 		return "";
 	}
 
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), @ApiResponse(code = 403, message = "Forbidden") })
 	@ResponseBody
 	@RequestMapping(value = "/mutant", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<?> mutant(@RequestBody String bodyJson) {
@@ -69,7 +66,6 @@ public class ApiService {
 		}
 	}
 
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok") })
 	@ResponseBody
 	@RequestMapping(value = "/stats", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<String> statistics() {
