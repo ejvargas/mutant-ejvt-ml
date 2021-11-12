@@ -1,24 +1,37 @@
 package co.com.ejvt.ml.mutant;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringBootConfiguration;
 
+@SpringBootConfiguration
 public class Mutant {
-
+	
+	@Value("${CARACTERES_VALIDOS:ACGT}")
 	String CaracteresValidos;
+
+	@Value("${secuencia.de.iguales:4}")
+	int SecuenciaDeIguales;
+	
+	@Value("${secuencia.para.ser.mutante:2}")
+	int NumeroDeSecuenciasParaSerMutante;
+	
 	int TamanhoReferencia = Integer.MIN_VALUE;
-	int SecuenciaDeIguales = Integer.MIN_VALUE;
-	int NumeroDeSecuenciasParaSerMutante = Integer.MIN_VALUE;
 	String[] Array = null;
 
 	@Autowired
 	public Mutant(String[] array) {
-		SecuenciaDeIguales = System.getenv().get("SECUENCIA_DE_IGUALES") == null ? 4
-				: Integer.parseInt(System.getenv().get("SECUENCIA_DE_IGUALES"));
-		NumeroDeSecuenciasParaSerMutante = System.getenv().get("SECUENCIA_PARA_SER_MUTANTE") == null ? 2
-				: Integer.parseInt(System.getenv().get("SECUENCIA_PARA_SER_MUTANTE"));
-		CaracteresValidos = System.getenv().get("CARACTERES_VALIDOS") == null ? "ACGT"
-				: System.getenv().get("CARACTERES_VALIDOS");
+//		SecuenciaDeIguales = System.getenv().get("SECUENCIA_DE_IGUALES") == null ? 4
+//				: Integer.parseInt(System.getenv().get("SECUENCIA_DE_IGUALES"));
+//		NumeroDeSecuenciasParaSerMutante = System.getenv().get("SECUENCIA_PARA_SER_MUTANTE") == null ? 2
+//				: Integer.parseInt(System.getenv().get("SECUENCIA_PARA_SER_MUTANTE"));
+//		CaracteresValidos = System.getenv().get("CARACTERES_VALIDOS") == null ? "ACGT"
+//				: System.getenv().get("CARACTERES_VALIDOS");
 
+		System.out.print("PAR: "+CaracteresValidos);
+		System.out.print("PAR: "+SecuenciaDeIguales);
+		System.out.print("PAR: "+NumeroDeSecuenciasParaSerMutante);
+		
 		paramValidations(array);
 		Array = array;
 	}
