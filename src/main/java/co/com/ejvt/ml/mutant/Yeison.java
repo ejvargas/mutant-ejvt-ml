@@ -12,7 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
-public class Json {
+public class Yeison {
 	
 	@Bean
 	public String[] getJsonArray(String bodyRest) {

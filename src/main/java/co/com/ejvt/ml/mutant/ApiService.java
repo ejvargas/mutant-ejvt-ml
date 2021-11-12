@@ -74,7 +74,7 @@ public class ApiService {
 
 	@Autowired
 	public boolean isMutant(String bodyJson) {
-		String[] array = (new Json()).getJsonArray(bodyJson);
+		String[] array = (new Yeison()).getJsonArray(bodyJson);
 		if (array==null || array.length==0) 
 			return false;
 		else
