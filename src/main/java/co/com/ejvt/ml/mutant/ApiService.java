@@ -100,7 +100,7 @@ public class ApiService {
 	public String getStatistics2() {
 		BDAccess consultasBD = new BDAccess();
 		int[] statisticsJoint = consultasBD.getStatistics();
-		float ratio = (float) statisticsJoint[1] / (float) statisticsJoint[0];
+		float ratio = statisticsJoint[0]!=0 ?  (float) statisticsJoint[1] / (float) statisticsJoint[0] : 1;
 		return String.format(Locale.US, "{\"count_mutant_dna\":%d, \"count_human_dna\":%d, \"ratio\":%.2f}",
 				statisticsJoint[1], statisticsJoint[0], ratio);
 	}
