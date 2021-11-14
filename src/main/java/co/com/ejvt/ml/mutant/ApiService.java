@@ -91,7 +91,8 @@ public class ApiService {
 			}
 		}
 	}
-
+	
+	@Autowired
 	public String getStatistics1() {
 		BDAccess consultasBD = new BDAccess();
 		int sumaHumans = consultasBD.getSumHumans();
@@ -101,6 +102,7 @@ public class ApiService {
 				sumaMutants, sumaHumans, ratio);
 	}
 
+	@Autowired
 	public String getStatistics2() {
 		BDAccess consultasBD = new BDAccess();
 		int[] statisticsJoint = consultasBD.getStatistics();

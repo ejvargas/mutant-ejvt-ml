@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 
 public class VTRandomMatrix {
 
@@ -15,6 +16,7 @@ public class VTRandomMatrix {
 		logger.info(String.format("Random: %s", (new VTRandomMatrix()).getRandomMatrixInJson(6)));
 	}
 
+	@Bean
 	public String getRandomMatrixInJson(int tamanho) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i <= tamanho; i++) {

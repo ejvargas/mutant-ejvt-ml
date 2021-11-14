@@ -12,23 +12,26 @@ public class MutantAnalyzer {
 	public int secVertical;
 	public int secOblicuasPositivas;
 	public int secOblicuasNegativas;
-	String caracteresValidos;
+
 	int tamanhoReferencia;
-	int secuenciaDeIguales;
-	int numeroDeSecuenciasParaSerMutante;
+	int secuenciaDeIguales = System.getenv().get("SECUENCIA_DE_IGUALES") == null ? 4
+			: Integer.parseInt(System.getenv().get("SECUENCIA_DE_IGUALES"));
+	int numeroDeSecuenciasParaSerMutante = System.getenv().get("SECUENCIA_PARA_SER_MUTANTE") == null ? 2
+			: Integer.parseInt(System.getenv().get("SECUENCIA_PARA_SER_MUTANTE"));
+	String caracteresValidos = System.getenv().get("CARACTERES_VALIDOS") == null ? "ACGT"
+			: System.getenv().get("CARACTERES_VALIDOS");
+	
 	String[] arrayWorking = null;
 
 	@Autowired
 	public MutantAnalyzer(String[] array) {
-		secuenciaDeIguales = System.getenv().get("SECUENCIA_DE_IGUALES") == null ? 4
-				: Integer.parseInt(System.getenv().get("SECUENCIA_DE_IGUALES"));
-		numeroDeSecuenciasParaSerMutante = System.getenv().get("SECUENCIA_PARA_SER_MUTANTE") == null ? 2
-				: Integer.parseInt(System.getenv().get("SECUENCIA_PARA_SER_MUTANTE"));
-		caracteresValidos = System.getenv().get("CARACTERES_VALIDOS") == null ? "ACGT"
-				: System.getenv().get("CARACTERES_VALIDOS");
-
 		paramValidations(array);
 		arrayWorking = array;
+	}
+
+	public static void main(String[] args) {
+		String[] dna = { "ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG" };
+		(new MutantAnalyzer(dna)).isMutant();
 	}
 
 	@Autowired
@@ -56,11 +59,6 @@ public class MutantAnalyzer {
 				throw new IllegalArgumentException(String.format("La fila '%s' contiene información no válida.", fila));
 			}
 		}
-	}
-
-	public static void main(String[] args) {
-		String[] dna = { "ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG" };
-		(new MutantAnalyzer(dna)).isMutant();
 	}
 
 	@Autowired
@@ -259,10 +257,9 @@ public class MutantAnalyzer {
 		sbf.append(String.format(
 				"%sTotal [%s]: Horizontales [%s], Verticales [%s], Oblicuas Positivas [%s], Oblicuas Negativas [%s]",
 				"\r\n", secuenciasEncontradas, secHorizontal, secVertical, secOblicuasPositivas, secOblicuasNegativas));
-		
+
 		if (!sbf.toString().isEmpty())
 			logger.info(String.format("Resumen: %s", sbf.toString()));
-
 
 	}
 

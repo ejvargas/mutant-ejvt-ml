@@ -37,7 +37,6 @@ public class BDAccess {
 			} catch (Exception e) {
 				logger.error(String.format("Error guardando el Análisis de ADN la BD: %s", e.getMessage()));
 			}
-
 		} catch (Exception e) {
 			logger.error(String.format("Error obteniendo la conexión para guardando el Análisis de ADN la BD: %s",
 					e.getMessage()));
