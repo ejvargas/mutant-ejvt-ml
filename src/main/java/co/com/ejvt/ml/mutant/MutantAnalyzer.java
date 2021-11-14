@@ -40,6 +40,11 @@ public class MutantAnalyzer {
 	
 	String[] arrayWorking = null;
 
+	public static void main(String[] args) {
+		String[] dna = { "CTGCGA", "CAGTAC", "TTGAGT", "AGAGGG", "CACCGA", "TCACTG" };
+		(new MutantAnalyzer(dna)).isMutant();
+	}
+	
 	@Autowired
 	public MutantAnalyzer(String[] array) {
 		paramValidations(array);
@@ -91,169 +96,169 @@ public class MutantAnalyzer {
 
 	@Autowired
 	private int recorrerHorizontal() {
-		int contadorSecuencias = 0;
-		int contadorReps = 0;
+		int contadorSecuenciasH = 0;
+		int contadorRepsH = 0;
 
-		for (int i = 0; i < tamanhoReferencia; i++) {
-			String anterior = " ";
-			contadorReps = 0;
-			for (int j = 0; j < tamanhoReferencia; j++) {
-				String actual = arrayWorking[i].substring(j, j + 1);
+		for (int filaH = 0; filaH < tamanhoReferencia; filaH++) {
+			String anteriorH = " ";
+			contadorRepsH = 0;
+			for (int columnaH = 0; columnaH < tamanhoReferencia; columnaH++) {
+				String actualH = arrayWorking[filaH].substring(columnaH, columnaH + 1);
 
-				if (actual.equals(anterior)) {
-					contadorReps++;
-					if (contadorReps == (secuenciaDeIguales - 1)) {
-						contadorSecuencias++;
-						contadorReps = 0;
+				if (actualH.equals(anteriorH)) {
+					contadorRepsH++;
+					if (contadorRepsH == (secuenciaDeIguales - 1)) {
+						contadorSecuenciasH++;
+						contadorRepsH = 0;
 					}
 				} else {
-					contadorReps = 0;
+					contadorRepsH = 0;
 				}
 
-				anterior = actual;
+				anteriorH = actualH;
 			}
 		}
 
-		return contadorSecuencias;
+		return contadorSecuenciasH;
 	}
 
 	@Autowired
 	private int recorrerVertical() {
-		int contadorSecuencias = 0;
-		int contadorReps = 0;
+		int contadorSecuenciasV = 0;
+		int contadorRepsV = 0;
 
-		for (int i = 0; i < tamanhoReferencia; i++) {
-			String anterior = " ";
-			contadorReps = 0;
-			for (int j = 0; j < tamanhoReferencia; j++) {
-				String actual = arrayWorking[j].substring(i, i + 1);
+		for (int filaV = 0; filaV < tamanhoReferencia; filaV++) {
+			String anteriorV = " ";
+			contadorRepsV = 0;
+			for (int columnaV = 0; columnaV < tamanhoReferencia; columnaV++) {
+				String actualV = arrayWorking[columnaV].substring(filaV, filaV + 1);
 
-				if (actual.equals(anterior)) {
-					contadorReps++;
-					if (contadorReps == (secuenciaDeIguales - 1)) {
-						contadorSecuencias++;
-						contadorReps = 0;
+				if (actualV.equals(anteriorV)) {
+					contadorRepsV++;
+					if (contadorRepsV == (secuenciaDeIguales - 1)) {
+						contadorSecuenciasV++;
+						contadorRepsV = 0;
 					}
 				} else {
-					contadorReps = 0;
+					contadorRepsV = 0;
 				}
 
-				anterior = actual;
+				anteriorV = actualV;
 			}
 		}
-		return contadorSecuencias;
+		return contadorSecuenciasV;
 
 	}
 
 	@Autowired
 	private int recorrerOblicuasPositivas() {
-		int contadorSecuencias = 0;
-		int contadorReps = 0;
+		int contadorSecuenciasOP = 0;
+		int contadorRepsOP = 0;
 
-		for (int k = 1; k <= tamanhoReferencia; k++) {
-			String anterior = " ";
-			contadorReps = 0;
-			for (int i = 0; i <= k; i++) {
-				for (int j = 0; j <= k; j++) {
-					if (j + i == k - 1) {
-						String actual = arrayWorking[i].substring(j, j + 1);
+		for (int pendienteOPDiagonalNorte = 1; pendienteOPDiagonalNorte <= tamanhoReferencia; pendienteOPDiagonalNorte++) {
+			String anteriorOPDN = " ";
+			contadorRepsOP = 0;
+			for (int filaOPDN = 0; filaOPDN <= pendienteOPDiagonalNorte; filaOPDN++) {
+				for (int columnaOPDN = 0; columnaOPDN <= pendienteOPDiagonalNorte; columnaOPDN++) {
+					if (columnaOPDN + filaOPDN == pendienteOPDiagonalNorte - 1) {
+						String actualOPDN = arrayWorking[filaOPDN].substring(columnaOPDN, columnaOPDN + 1);
 
-						if (actual.equals(anterior)) {
-							contadorReps++;
-							if (contadorReps == (secuenciaDeIguales - 1)) {
-								contadorSecuencias++;
-								contadorReps = 0;
+						if (actualOPDN.equals(anteriorOPDN)) {
+							contadorRepsOP++;
+							if (contadorRepsOP == (secuenciaDeIguales - 1)) {
+								contadorSecuenciasOP++;
+								contadorRepsOP = 0;
 							}
 						} else {
-							contadorReps = 0;
+							contadorRepsOP = 0;
 						}
 
-						anterior = actual;
+						anteriorOPDN = actualOPDN;
 					}
 				}
 			}
 		}
-		for (int k = tamanhoReferencia + 1; k <= (tamanhoReferencia * 2) - 1; k++) {
-			String anterior = " ";
-			contadorReps = 0;
-			for (int i = 1; i <= tamanhoReferencia - 1; i++) {
-				for (int j = tamanhoReferencia - 1; j >= 0; j--) {
-					if (j + i == k - 1) {
-						String actual = arrayWorking[i].substring(j, j + 1);
+		for (int pendienteOPDS = tamanhoReferencia + 1; pendienteOPDS <= (tamanhoReferencia * 2) - 1; pendienteOPDS++) {
+			String anteriorOPDS = " ";
+			contadorRepsOP = 0;
+			for (int filaOPDS = 1; filaOPDS <= tamanhoReferencia - 1; filaOPDS++) {
+				for (int columnaOPDS = tamanhoReferencia - 1; columnaOPDS >= 0; columnaOPDS--) {
+					if (columnaOPDS + filaOPDS == pendienteOPDS - 1) {
+						String actualOPDS = arrayWorking[filaOPDS].substring(columnaOPDS, columnaOPDS + 1);
 
-						if (actual.equals(anterior)) {
-							contadorReps++;
-							if (contadorReps == (secuenciaDeIguales - 1)) {
-								contadorSecuencias++;
-								contadorReps = 0;
+						if (actualOPDS.equals(anteriorOPDS)) {
+							contadorRepsOP++;
+							if (contadorRepsOP == (secuenciaDeIguales - 1)) {
+								contadorSecuenciasOP++;
+								contadorRepsOP = 0;
 							}
 						} else {
-							contadorReps = 0;
+							contadorRepsOP = 0;
 						}
 
-						anterior = actual;
+						anteriorOPDS = actualOPDS;
 					}
 				}
 			}
 		}
 
-		return contadorSecuencias;
+		return contadorSecuenciasOP;
 
 	}
 
 	@Autowired
 	private int recorrerOblicuasNegativas() {
-		int contadorSecuencias = 0;
-		int contadorReps = 0;
+		int contadorSecuenciasON = 0;
+		int contadorRepsON = 0;
 
-		for (int k = tamanhoReferencia - 1; k >= 0; k--) {
-			String anterior = " ";
-			contadorReps = 0;
-			for (int i = 0; i <= tamanhoReferencia - 1; i++) {
-				for (int j = tamanhoReferencia - 1; j >= 0; j--) {
-					if (j - i == k) {
-						String actual = arrayWorking[i].substring(j, j + 1);
+		for (int pendienteON = tamanhoReferencia - 1; pendienteON >= 0; pendienteON--) {
+			String anteriorON = " ";
+			contadorRepsON = 0;
+			for (int filaON = 0; filaON <= tamanhoReferencia - 1; filaON++) {
+				for (int columnaON = tamanhoReferencia - 1; columnaON >= 0; columnaON--) {
+					if (columnaON - filaON == pendienteON) {
+						String actualON = arrayWorking[filaON].substring(columnaON, columnaON + 1);
 
-						if (actual.equals(anterior)) {
-							contadorReps++;
-							if (contadorReps == (secuenciaDeIguales - 1)) {
-								contadorSecuencias++;
-								contadorReps = 0;
+						if (actualON.equals(anteriorON)) {
+							contadorRepsON++;
+							if (contadorRepsON == (secuenciaDeIguales - 1)) {
+								contadorSecuenciasON++;
+								contadorRepsON = 0;
 							}
 						} else {
-							contadorReps = 0;
+							contadorRepsON = 0;
 						}
 
-						anterior = actual;
+						anteriorON = actualON;
 					}
 				}
 			}
 		}
-		for (int k = 1; k <= tamanhoReferencia - 1; k++) {
-			String anterior = " ";
-			contadorReps = 0;
-			for (int i = 1; i <= tamanhoReferencia - 1; i++) {
-				for (int j = tamanhoReferencia - 2; j >= 0; j--) {
-					if (i - j == k) {
-						String actual = arrayWorking[i].substring(j, j + 1);
+		for (int pendienteON = 1; pendienteON <= tamanhoReferencia - 1; pendienteON++) {
+			String anteriorON = " ";
+			contadorRepsON = 0;
+			for (int filaON = 1; filaON <= tamanhoReferencia - 1; filaON++) {
+				for (int columnaON = tamanhoReferencia - 2; columnaON >= 0; columnaON--) {
+					if (filaON - columnaON == pendienteON) {
+						String actualON = arrayWorking[filaON].substring(columnaON, columnaON + 1);
 
-						if (actual.equals(anterior)) {
-							contadorReps++;
-							if (contadorReps == (secuenciaDeIguales - 1)) {
-								contadorSecuencias++;
-								contadorReps = 0;
+						if (actualON.equals(anteriorON)) {
+							contadorRepsON++;
+							if (contadorRepsON == (secuenciaDeIguales - 1)) {
+								contadorSecuenciasON++;
+								contadorRepsON = 0;
 							}
 						} else {
-							contadorReps = 0;
+							contadorRepsON = 0;
 						}
 
-						anterior = actual;
+						anteriorON = actualON;
 					}
 				}
 			}
 		}
 
-		return contadorSecuencias;
+		return contadorSecuenciasON;
 	}
 
 	@Autowired
