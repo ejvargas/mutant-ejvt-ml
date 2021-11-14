@@ -8,10 +8,27 @@ public class MutantAnalyzer {
 
 	Logger logger = LoggerFactory.getLogger(MutantAnalyzer.class);
 	org.slf4j.Marker marker;
-	public int secHorizontal;
-	public int secVertical;
-	public int secOblicuasPositivas;
-	public int secOblicuasNegativas;
+	
+	public int getCantidadSecuenciasHorizontal() {
+		return cantidadSecuenciasHorizontal;
+	}
+
+	public int getCantidadSecuenciasVertical() {
+		return cantidadSecuenciasVertical;
+	}
+
+	public int getCantidadSecuenciasOblicuasPositivas() {
+		return cantidadSecuenciasOblicuasPositivas;
+	}
+
+	public int getCantidadSecuenciasOblicuasNegativas() {
+		return cantidadSecuenciasOblicuasNegativas;
+	}
+
+	private int cantidadSecuenciasHorizontal;
+	private int cantidadSecuenciasVertical;
+	private int cantidadSecuenciasOblicuasPositivas;
+	private int cantidadSecuenciasOblicuasNegativas;
 
 	int tamanhoReferencia;
 	int secuenciaDeIguales = System.getenv().get("SECUENCIA_DE_IGUALES") == null ? 4
@@ -66,15 +83,15 @@ public class MutantAnalyzer {
 		if (tamanhoReferencia < secuenciaDeIguales)
 			return false;
 
-		secHorizontal = recorrerHorizontal();
-		secVertical = recorrerVertical();
-		secOblicuasPositivas = recorrerOblicuasPositivas();
-		secOblicuasNegativas = recorrerOblicuasNegativas();
+		cantidadSecuenciasHorizontal = recorrerHorizontal();
+		cantidadSecuenciasVertical = recorrerVertical();
+		cantidadSecuenciasOblicuasPositivas = recorrerOblicuasPositivas();
+		cantidadSecuenciasOblicuasNegativas = recorrerOblicuasNegativas();
 
-		mostrarResumen(secHorizontal, secVertical, secOblicuasPositivas, secOblicuasNegativas);
+		mostrarResumen(cantidadSecuenciasHorizontal, cantidadSecuenciasVertical, cantidadSecuenciasOblicuasPositivas, cantidadSecuenciasOblicuasNegativas);
 
-		return (secHorizontal + secVertical + secOblicuasPositivas
-				+ secOblicuasNegativas >= numeroDeSecuenciasParaSerMutante);
+		return (cantidadSecuenciasHorizontal + cantidadSecuenciasVertical + cantidadSecuenciasOblicuasPositivas
+				+ cantidadSecuenciasOblicuasNegativas >= numeroDeSecuenciasParaSerMutante);
 	}
 
 	@Autowired

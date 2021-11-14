@@ -73,14 +73,14 @@ public class ApiService {
 					if (resultadoMa) {
 						return ResponseEntity.status(HttpStatus.OK).body(String.format(
 								"{ \"isMutant\" = %s,  \"horizontales\" = %s, \"verticales\" = %s, \"oblicuas_positivas\" = %s, \"oblicuas_negativas\" = %s }",
-								true, ma.secHorizontal, ma.secVertical, ma.secOblicuasPositivas,
-								ma.secOblicuasNegativas));
+								true, ma.getCantidadSecuenciasHorizontal(), ma.getCantidadSecuenciasVertical(), ma.getCantidadSecuenciasOblicuasPositivas(),
+								ma.getCantidadSecuenciasOblicuasNegativas()));
 						
 					} else {
 						return ResponseEntity.status(HttpStatus.FORBIDDEN).body(String.format(
 								"{ \"isMutant\" = %s,  \"horizontales\" = %s, \"verticales\" = %s, \"oblicuas_positivas\" = %s, \"oblicuas_negativas\" = %s }",
-								false, ma.secHorizontal, ma.secVertical, ma.secOblicuasPositivas,
-								ma.secOblicuasNegativas));
+								false, ma.getCantidadSecuenciasHorizontal(), ma.getCantidadSecuenciasVertical(), ma.getCantidadSecuenciasOblicuasPositivas(),
+								ma.getCantidadSecuenciasOblicuasNegativas()));
 					}
 					
 				} catch (Exception e) {
