@@ -34,7 +34,7 @@ public class BDAccess {
 
 	private String sqlSumHumans = "select SUM(conteo) as \"SUMA\" from STATS where ishuman";
 	private String sqlSumMutants = "select SUM(conteo) as \"SUMA\" from STATS where ismutant;";
-	private String sqlSumJoint = "select (select SUM(conteo) from STATS where ishuman) as \"Humans\", (select SUM(conteo) from STATS where ismutant) as \"Mutants\";";
+	private String sqlSumJoint = "select (select coalesce(sum(conteo), 0)  from STATS where ishuman) as \"Humans\", (select coalesce(sum(conteo), 0)  from STATS where ismutant) as \"Mutants\";";
 
 	@Autowired
 	private DataSource dataSource;
