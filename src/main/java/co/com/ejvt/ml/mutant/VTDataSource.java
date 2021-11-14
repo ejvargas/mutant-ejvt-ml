@@ -16,7 +16,7 @@ public class VTDataSource {
 	static Logger logger = LoggerFactory.getLogger(VTDataSource.class);
 
 	private static String jdbcUrl = System.getenv().get("JDBC_DATABASE_URL") == null
-			? "jdbc:postgresql://localhost:5432/mutant?user=postgres&password=pro"
+			? "jdbc:postgresql://localhost:5432/mutant?user=postgres&password="+"pro" 
 			: System.getenv().get("JDBC_DATABASE_URL");
 
 	private static HikariConfig config = new HikariConfig();
