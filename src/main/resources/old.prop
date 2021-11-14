@@ -1,8 +1,0 @@
-
-secuencia.de.iguales: ${SECUENCIA_DE_IGUALES}
-secuencia.para.ser.mutante: ${SECUENCIA_PARA_SER_MUTANTE}
-caracteres.validos: ${CARACTERES_VALIDOS}
-
-sql.query.upsert= "INSERT INTO stats (adnkey, adnsequence, ishuman, ismutant, conteo) VALUES('%s','%s', %s, %s, 1) ON CONFLICT ON CONSTRAINT stats_un_adnkey DO UPDATE SET conteo = stats.conteo + 1;"
-sql.query.sum.humans: "select SUM(conteo) from STATS where ishuman"
-sql.query.sum.mutants: "select SUM(conteo) from STATS where ismutant"
