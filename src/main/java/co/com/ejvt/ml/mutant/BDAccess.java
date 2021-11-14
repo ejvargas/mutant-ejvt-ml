@@ -26,18 +26,10 @@ public class BDAccess {
 
 	static Logger logger = LoggerFactory.getLogger(BDAccess.class);
 
-	@Value("${spring.datasource.url}")
-	private String jdbcUrl;// = "jdbc:postgresql://localhost:5432/mutant?user=postgres&password=pro";
-
-	@Value("${sql.query.upsert}")
 	private String sqlUpsert = "INSERT INTO stats (adnkey, adnsequence, ishuman, ismutant, conteo) VALUES('%s','%s', %s, %s, 1) ON CONFLICT ON CONSTRAINT stats_un_adnkey DO UPDATE SET conteo = stats.conteo + 1;";
-
 	private String sqlSumHumans = "select SUM(conteo) as \"SUMA\" from STATS where ishuman";
 	private String sqlSumMutants = "select SUM(conteo) as \"SUMA\" from STATS where ismutant;";
 	private String sqlSumJoint = "select (select coalesce(sum(conteo), 0)  from STATS where ishuman) as \"Humans\", (select coalesce(sum(conteo), 0)  from STATS where ismutant) as \"Mutants\";";
-
-	@Autowired
-	private DataSource dataSource;
 
 	public static void main(String[] args) {
 		int[] dasda = (new BDAccess()).getStatistics();
@@ -48,23 +40,23 @@ public class BDAccess {
 	@Bean
 	public boolean guardarAnalisisADN(String adn, boolean isMutant) {
 		String hashedADN;
-
+		Connection connection;
+		Statement stmt;
 		try {
-			Connection connection = (new DataSourceConfiguration()).customDataSource().getConnection();
-			Statement stmt = connection.createStatement();
+			connection = VTDataSource.getConnection();
+			stmt = connection.createStatement();
 			hashedADN = (new Utilidades()).stringInSHA(adn);
 
 			stmt.execute(String.format(sqlUpsert, hashedADN, adn, !isMutant, isMutant, 1));
 
 			stmt.close();
 			connection.close();
-			connection=null;
 			return true;
 		} catch (NoSuchAlgorithmException e) {
 			logger.error(String.format("Error calculando Hash: %s", e.getMessage()));
 		} catch (Exception e) {
 			logger.error(String.format("Error actualizando la BD: %s", e.getMessage()));
-		}finally {}
+		}
 
 		return false;
 	}
@@ -72,9 +64,11 @@ public class BDAccess {
 	@Bean
 	public int[] getStatistics() {
 		int[] statistics = new int[2];
+		Connection connection;
+		Statement stmt;
 		try {
-			Connection connection = (new DataSourceConfiguration()).customDataSource().getConnection();
-			Statement stmt = connection.createStatement();
+			connection = VTDataSource.getConnection();
+			stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sqlSumJoint);
 
 			while (rs.next()) {
@@ -83,7 +77,6 @@ public class BDAccess {
 			}
 			stmt.close();
 			connection.close();
-			connection=null;
 		} catch (Exception e) {
 			logger.error(String.format("Error actualizando la BD: %s", e.getMessage()));
 		}
@@ -94,9 +87,11 @@ public class BDAccess {
 	@Bean
 	public int getSumHumans() {
 		int suma = 0;
+		Connection connection;
+		Statement stmt;
 		try {
-			Connection connection = (new DataSourceConfiguration()).customDataSource().getConnection();
-			Statement stmt = connection.createStatement();
+			connection = VTDataSource.getConnection();
+			stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sqlSumHumans);
 
 			while (rs.next()) {
@@ -104,7 +99,6 @@ public class BDAccess {
 			}
 			stmt.close();
 			connection.close();
-			connection=null;
 		} catch (Exception e) {
 			logger.error(String.format("Error actualizando la BD: %s", e.getMessage()));
 		}
@@ -115,9 +109,11 @@ public class BDAccess {
 	@Bean
 	public int getSumMutants() {
 		int suma = 0;
+		Connection connection;
+		Statement stmt;
 		try {
-			Connection connection = (new DataSourceConfiguration()).customDataSource().getConnection();
-			Statement stmt = connection.createStatement();
+			connection = VTDataSource.getConnection();
+			stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sqlSumMutants);
 
 			while (rs.next()) {
@@ -125,24 +121,10 @@ public class BDAccess {
 			}
 			stmt.close();
 			connection.close();
-			connection=null;
 		} catch (Exception e) {
 			logger.error(String.format("Error actualizando la BD: %s", e.getMessage()));
 		}
 
 		return suma;
 	}
-
-//	public DataSource dataSource() throws SQLException {
-//		if (jdbcUrl == null || jdbcUrl.isEmpty()) {
-//			return new HikariDataSource();
-//		} else {
-//			HikariConfig config = new HikariConfig();
-//			config.setJdbcUrl(jdbcUrl);
-//			config.setMaxLifetime(1000);
-//			config.setMinimumIdle(2);
-//			return new HikariDataSource(config);
-//		}
-//	}
-
 }
