@@ -12,10 +12,6 @@ public class VTRandomMatrix {
 
 	static Logger logger = LoggerFactory.getLogger(VTRandomMatrix.class);
 
-	public static void main(String[] args) {
-		logger.info(String.format("Random: %s", (new VTRandomMatrix()).getRandomMatrixInJson(6)));
-	}
-
 	@Bean
 	public String getRandomMatrixInJson(int tamanho) {
 		StringBuilder sb = new StringBuilder();

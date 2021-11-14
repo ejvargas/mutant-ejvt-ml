@@ -46,11 +46,6 @@ public class MutantAnalyzer {
 		arrayWorking = array;
 	}
 
-	public static void main(String[] args) {
-		String[] dna = { "ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG" };
-		(new MutantAnalyzer(dna)).isMutant();
-	}
-
 	@Autowired
 	private void paramValidations(String[] array) {
 
@@ -275,8 +270,10 @@ public class MutantAnalyzer {
 				"%sTotal [%s]: Horizontales [%s], Verticales [%s], Oblicuas Positivas [%s], Oblicuas Negativas [%s]",
 				"\r\n", secuenciasEncontradas, secHorizontal, secVertical, secOblicuasPositivas, secOblicuasNegativas));
 
-		if (!sbf.toString().isEmpty())
-			logger.info(String.format("Resumen: %s", sbf.toString()));
+		if (!sbf.toString().isEmpty()) {
+			String resumen = String.format("Resumen: %s", sbf.toString());
+			logger.info(resumen);
+		}
 
 	}
 

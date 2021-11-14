@@ -17,14 +17,6 @@ public class BDAccess {
 	private String sqlSumMutants = "select SUM(conteo) as \"SUMA\" from STATS where ismutant;";
 	private String sqlSumJoint = "select (select coalesce(sum(conteo), 0)  from STATS where ishuman) as \"Humans\", (select coalesce(sum(conteo), 0)  from STATS where ismutant) as \"Mutants\";";
 
-	public static void main(String[] args) {
-		int[] stats = (new BDAccess()).getStatistics();
-		if (stats != null) {
-			logger.info(String.format("HUM: %s", stats[0]));
-			logger.info(String.format("MUT: %s", stats[1]));
-		}
-	}
-
 	@Bean
 	public boolean guardarAnalisisADN(String adn, boolean isMutant) {
 		String hashedADN;
