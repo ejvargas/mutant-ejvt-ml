@@ -57,7 +57,7 @@ public class ApiService {
 	}
 
 	@Autowired
-	public ResponseEntity isMutant(String bodyRequest) throws Exception {
+	public ResponseEntity<?> isMutant(String bodyRequest) throws Exception {
 		if (bodyRequest == null || bodyRequest.trim().isEmpty()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ error : \"El cuerpo (body) de la petición no puede estar vacía.\"}");
 		} else {

@@ -3,24 +3,11 @@ package co.com.ejvt.ml.mutant;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
-import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
-
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 
 public class BDAccess {
 
@@ -33,8 +20,8 @@ public class BDAccess {
 
 	public static void main(String[] args) {
 		int[] dasda = (new BDAccess()).getStatistics();
-		logger.info("HUM: "+dasda[0]);
-		logger.info("MUT: "+dasda[1]);
+		logger.info("HUM: " + dasda[0]);
+		logger.info("MUT: " + dasda[1]);
 	}
 
 	@Bean
@@ -83,7 +70,7 @@ public class BDAccess {
 
 		return statistics;
 	}
-	
+
 	@Bean
 	public int getSumHumans() {
 		int suma = 0;
@@ -127,4 +114,5 @@ public class BDAccess {
 
 		return suma;
 	}
+
 }
