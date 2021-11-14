@@ -36,7 +36,7 @@ public class ApiService {
 
 	@ResponseBody
 	@PostMapping(value = "/mutant", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<?> mutant(@RequestBody String bodyJson) {
+	public ResponseEntity<String> mutant(@RequestBody String bodyJson) {
 		try {
 			return isMutant(bodyJson);
 		} catch (Exception e) {
@@ -57,7 +57,7 @@ public class ApiService {
 	}
 
 	@Autowired
-	public ResponseEntity<?> isMutant(String bodyRequest) throws Exception {
+	public ResponseEntity<String> isMutant(String bodyRequest) {
 		if (bodyRequest == null || bodyRequest.trim().isEmpty()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ error : \"El cuerpo (body) de la petición no puede estar vacía.\"}");
 		} else {

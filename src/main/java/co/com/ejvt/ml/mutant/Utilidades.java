@@ -1,7 +1,6 @@
 package co.com.ejvt.ml.mutant;
 
 import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -46,7 +45,7 @@ public class Utilidades {
 	}
 
 	@Bean
-	public String stringInSHA(String cadena) throws NoSuchAlgorithmException {
+	public String stringInSHA(String cadena) {
 		return Hashing.sha256().hashString(cadena, StandardCharsets.UTF_8).toString();
 	}
 

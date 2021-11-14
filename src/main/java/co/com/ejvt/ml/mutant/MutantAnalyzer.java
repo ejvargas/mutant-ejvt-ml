@@ -59,13 +59,8 @@ public class MutantAnalyzer {
 	}
 
 	public static void main(String[] args) {
-
-		// ORIGINAL: {"ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
-		// OB_POSITIVA: {"ATGCGA","CACTGC","TCATGT","CGAAGG","CCCCTA","TCACTG"};
-
 		String[] dna = { "ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG" };
 		(new MutantAnalyzer(dna)).isMutant();
-
 	}
 
 	@Autowired
@@ -262,10 +257,11 @@ public class MutantAnalyzer {
 			sbf.append("\r\n     " + fila + "");
 		}
 		sbf.append(String.format(
-				"\r\nTotal [%s]: Horizontales [%s], Verticales [%s], Oblicuas Positivas [%s], Oblicuas Negativas [%s]",
-				secuenciasEncontradas, secHorizontal, secVertical, secOblicuasPositivas, secOblicuasNegativas));
-
-		logger.info(marker, sbf.toString());
+				"%sTotal [%s]: Horizontales [%s], Verticales [%s], Oblicuas Positivas [%s], Oblicuas Negativas [%s]",
+				"\r\n", secuenciasEncontradas, secHorizontal, secVertical, secOblicuasPositivas, secOblicuasNegativas));
+		
+		if (!sbf.toString().isEmpty())
+			logger.info(String.format("Resumen: %s", sbf.toString()));
 
 
 	}

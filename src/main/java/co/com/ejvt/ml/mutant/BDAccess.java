@@ -1,6 +1,5 @@
 package co.com.ejvt.ml.mutant;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -19,30 +18,29 @@ public class BDAccess {
 	private String sqlSumJoint = "select (select coalesce(sum(conteo), 0)  from STATS where ishuman) as \"Humans\", (select coalesce(sum(conteo), 0)  from STATS where ismutant) as \"Mutants\";";
 
 	public static void main(String[] args) {
-		int[] dasda = (new BDAccess()).getStatistics();
-		logger.info("HUM: " + dasda[0]);
-		logger.info("MUT: " + dasda[1]);
+		int[] stats = (new BDAccess()).getStatistics();
+		if (stats != null) {
+			logger.info(String.format("HUM: %s", stats[0]));
+			logger.info(String.format("MUT: %s", stats[1]));
+		}
 	}
 
 	@Bean
 	public boolean guardarAnalisisADN(String adn, boolean isMutant) {
 		String hashedADN;
-		Connection connection;
-		Statement stmt;
-		try {
-			connection = VTDataSource.getConnection();
-			stmt = connection.createStatement();
-			hashedADN = (new Utilidades()).stringInSHA(adn);
+		try (Connection connection = VTDataSource.getConnection()) {
+			try (Statement stmt = connection.createStatement()) {
+				hashedADN = (new Utilidades()).stringInSHA(adn);
 
-			stmt.execute(String.format(sqlUpsert, hashedADN, adn, !isMutant, isMutant, 1));
+				stmt.execute(String.format(sqlUpsert, hashedADN, adn, !isMutant, isMutant, 1));
+				return true;
+			} catch (Exception e) {
+				logger.error(String.format("Error guardando el Análisis de ADN la BD: %s", e.getMessage()));
+			}
 
-			stmt.close();
-			connection.close();
-			return true;
-		} catch (NoSuchAlgorithmException e) {
-			logger.error(String.format("Error calculando Hash: %s", e.getMessage()));
 		} catch (Exception e) {
-			logger.error(String.format("Error actualizando la BD: %s", e.getMessage()));
+			logger.error(String.format("Error obteniendo la conexión para guardando el Análisis de ADN la BD: %s",
+					e.getMessage()));
 		}
 
 		return false;
@@ -51,21 +49,20 @@ public class BDAccess {
 	@Bean
 	public int[] getStatistics() {
 		int[] statistics = new int[2];
-		Connection connection;
-		Statement stmt;
-		try {
-			connection = VTDataSource.getConnection();
-			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(sqlSumJoint);
 
-			while (rs.next()) {
-				statistics[0] = rs.getInt(1);
-				statistics[1] = rs.getInt(2);
+		try (Connection connection = VTDataSource.getConnection()) {
+			try (Statement stmt = connection.createStatement()) {
+				ResultSet rs = stmt.executeQuery(sqlSumJoint);
+				while (rs.next()) {
+					statistics[0] = rs.getInt(1);
+					statistics[1] = rs.getInt(2);
+				}
+			} catch (Exception e) {
+				logger.error(String.format("Error obteniendo las estadísticas de la BD: %s", e.getMessage()));
 			}
-			stmt.close();
-			connection.close();
 		} catch (Exception e) {
-			logger.error(String.format("Error actualizando la BD: %s", e.getMessage()));
+			logger.error(
+					String.format("Error obteniendo la conexión para las estadísticas de la BD: %s", e.getMessage()));
 		}
 
 		return statistics;
@@ -74,20 +71,19 @@ public class BDAccess {
 	@Bean
 	public int getSumHumans() {
 		int suma = 0;
-		Connection connection;
-		Statement stmt;
-		try {
-			connection = VTDataSource.getConnection();
-			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(sqlSumHumans);
+		try (Connection connection = VTDataSource.getConnection()) {
+			try (Statement stmt = connection.createStatement()) {
+				ResultSet rs = stmt.executeQuery(sqlSumHumans);
 
-			while (rs.next()) {
-				suma = rs.getInt(1);
+				while (rs.next()) {
+					suma = rs.getInt(1);
+				}
+			} catch (Exception e) {
+				logger.error(String.format("Error obteniendo la suma de humanos de la BD: %s", e.getMessage()));
 			}
-			stmt.close();
-			connection.close();
 		} catch (Exception e) {
-			logger.error(String.format("Error actualizando la BD: %s", e.getMessage()));
+			logger.error(
+					String.format("Error obteniendo la conexión para la suma de humanos de la BD: %s", e.getMessage()));
 		}
 
 		return suma;
@@ -96,20 +92,19 @@ public class BDAccess {
 	@Bean
 	public int getSumMutants() {
 		int suma = 0;
-		Connection connection;
-		Statement stmt;
-		try {
-			connection = VTDataSource.getConnection();
-			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(sqlSumMutants);
+		try (Connection connection = VTDataSource.getConnection()) {
+			try (Statement stmt = connection.createStatement()) {
+				ResultSet rs = stmt.executeQuery(sqlSumMutants);
 
-			while (rs.next()) {
-				suma = rs.getInt(1);
+				while (rs.next()) {
+					suma = rs.getInt(1);
+				}
+			} catch (Exception e) {
+				logger.error(String.format("Error obteniendo la suma de humanos de la BD: %s", e.getMessage()));
 			}
-			stmt.close();
-			connection.close();
 		} catch (Exception e) {
-			logger.error(String.format("Error actualizando la BD: %s", e.getMessage()));
+			logger.error(String.format("Error obteniendo la conexión para la suma de mutantes de la BD: %s",
+					e.getMessage()));
 		}
 
 		return suma;
