@@ -15,8 +15,8 @@ import com.zaxxer.hikari.HikariDataSource;
 public class DataSourceConfiguration {
 
 	//private String jdbcUrl = "jdbc:postgresql://localhost:5432/mutant?user=postgres&password=pro";
-	private String jdbcUrl = System.getenv().get("DATABASE_URL") == null ? "jdbc:postgresql://localhost:5432/mutant?user=postgres&password=pro"
-			: "jdbc:"+System.getenv().get("DATABASE_URL");
+	private String jdbcUrl = System.getenv().get("JDBC_DATABASE_URL") == null ? "jdbc:postgresql://localhost:5432/mutant?user=postgres&password=pro"
+			: "jdbc:"+System.getenv().get("JDBC_DATABASE_URL");
 	
     @Bean(name="customDataSource")
     @ConfigurationProperties("spring.datasource")
