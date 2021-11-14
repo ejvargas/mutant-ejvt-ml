@@ -1,134 +1,118 @@
 package co.com.ejvt.ml.mutant;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
-import javax.sql.DataSource;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import com.google.gson.JsonSyntaxException;
 
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
 @SpringBootApplication
 public class ApiService {
 
-//	@Value("${spring.datasource.url}")
-//	private String dbUrl;
-//
-//	@Autowired
-//	private DataSource dataSource;
-	
+	Logger logger = LoggerFactory.getLogger(ApiService.class);
+
 	public static void main(String[] args) {
 		SpringApplication.run(ApiService.class, args);
-		
-		
 	}
 
-	@RequestMapping("/")
-	String index() {
+	@GetMapping(path = "/", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public String index() {
 		return "";
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/mutant", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping(value = "/mutant", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<?> mutant(@RequestBody String bodyJson) {
-		//System.out.print("PARXC: "+dbUrl);
-		if (bodyJson == null || bodyJson.isEmpty())
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		
 		try {
-			if (isMutant(bodyJson)) {
-				return ResponseEntity.status(HttpStatus.OK).body(null);
-			}else {
-				return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);}
+			return isMutant(bodyJson);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(getBodyError(e.getMessage()));
 		}
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/stats", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "/stats", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<String> statistics() {
-		return ResponseEntity.status(HttpStatus.OK).body(getStatistics());
+		return ResponseEntity.status(HttpStatus.OK).body(getStatistics2());
 	}
 
 	@Autowired
-	public boolean isMutant(String bodyJson) {
-		String[] array = (new Yeison()).getJsonArray(bodyJson);
-		if (array==null || array.length==0) 
-			return false;
-		else
-			return (new Mutant(array)).isMutant();
+	public ResponseEntity isMutant(String bodyRequest) throws Exception {
+		if (bodyRequest == null || bodyRequest.trim().isEmpty()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ error : \"El cuerpo (body) de la petición no puede estar vacía.\"}");
+		} else {
+			String[] arrayCorrectamenteFormado = (new Utilidades()).getJsonArray(bodyRequest);
+
+			if (arrayCorrectamenteFormado != null && arrayCorrectamenteFormado.length > 0) {
+				String arrayForBD = String.format("[ \"%s\" ]", String.join("\", \"", arrayCorrectamenteFormado));
+				try {
+					MutantAnalyzer ma = new MutantAnalyzer(arrayCorrectamenteFormado);
+					boolean resultadoMa = ma.isMutant();
+					(new BDAccess()).guardarAnalisisADN(arrayForBD, resultadoMa);
+					
+					if (resultadoMa) {
+						return ResponseEntity.status(HttpStatus.OK).body(String.format(
+								"{ \"isMutant\" = %s,  \"horizontales\" = %s, \"verticales\" = %s, \"oblicuas_positivas\" = %s, \"oblicuas_negativas\" = %s }",
+								true, ma.secHorizontal, ma.secVertical, ma.secOblicuasPositivas,
+								ma.secOblicuasNegativas));
+						
+					} else {
+						return ResponseEntity.status(HttpStatus.FORBIDDEN).body(String.format(
+								"{ \"isMutant\" = %s,  \"horizontales\" = %s, \"verticales\" = %s, \"oblicuas_positivas\" = %s, \"oblicuas_negativas\" = %s }",
+								false, ma.secHorizontal, ma.secVertical, ma.secOblicuasPositivas,
+								ma.secOblicuasNegativas));
+					}
+					
+				} catch (Exception e) {
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ error : \"Error en el análisis de la cadena de ADN.\"}");
+				}
+			} else {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{ error : \"El cuerpo (body) de la petición no permite obtenención una estructura JSON válida.\"}");
+			}
+		}
 	}
 
-	public String getStatistics() {
-		return "{ Success }";
+	public String getStatistics1() {
+		BDAccess consultasBD = new BDAccess();
+		int sumaHumans = consultasBD.getSumHumans();
+		int sumaMutants = consultasBD.getSumMutants();
+		float ratio = (float) sumaMutants / (float) sumaHumans;
+		return String.format(Locale.US, "{\"count_mutant_dna\":%d, \"count_human_dna\":%d, \"ratio\":%.2f}",
+				sumaMutants, sumaHumans, ratio);
 	}
-	
+
+	public String getStatistics2() {
+		BDAccess consultasBD = new BDAccess();
+		int[] statisticsJoint = consultasBD.getStatistics();
+		float ratio = (float) statisticsJoint[1] / (float) statisticsJoint[0];
+		return String.format(Locale.US, "{\"count_mutant_dna\":%d, \"count_human_dna\":%d, \"ratio\":%.2f}",
+				statisticsJoint[1], statisticsJoint[0], ratio);
+	}
+
 	@Autowired
 	public String getBodyError(String error) {
 		return String.format("{ error: \"%s\"}", error);
 	}
-	
+
 	@Bean
 	public String getAs() {
 		return "{ Success }";
 	}
-	
-	
-	
-//	@RequestMapping("/db")
-//	  String db(Map<String, Object> model) {
-//		System.out.print("PARXC2: "+dbUrl);
-//	    try (Connection connection = dataSource.getConnection()) {
-//	      Statement stmt = connection.createStatement();
-//	      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-//	      stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-//	      ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-//
-//	      ArrayList<String> output = new ArrayList<String>();
-//	      while (rs.next()) {
-//	        output.add("Read from DB: " + rs.getTimestamp("tick"));
-//	      }
-//
-//	      model.put("records", output);
-//	      return "db";
-//	    } catch (Exception e) {
-//	      model.put("message", e.getMessage());
-//	      return "error";
-//	    }
-//	  }
-//
-//	  @Bean
-//	  public DataSource dataSource() throws SQLException {
-//		  System.out.print("PARXC3: "+dbUrl);
-//	    if (dbUrl == null || dbUrl.isEmpty()) {
-//	      return new HikariDataSource();
-//	    } else {
-//	      HikariConfig config = new HikariConfig();
-//	      config.setJdbcUrl(dbUrl);
-//	      return new HikariDataSource(config);
-//	    }
-//	  }
 
 }
