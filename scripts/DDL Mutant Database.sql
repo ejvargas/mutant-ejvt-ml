@@ -18,7 +18,7 @@ CREATE INDEX stats_adnid_idx ON public.stats USING btree (adnid);
 
 -- Column comments
 COMMENT ON COLUMN public.stats.adnid IS 'Identificador de Tabla';
-COMMENT ON COLUMN public.stats.adnkey IS 'Llave de ADN (SHA-1)';
+COMMENT ON COLUMN public.stats.adnkey IS 'Llave de ADN (SHA-256)';
 COMMENT ON COLUMN public.stats.adnsequence IS 'Sequencia de ADN';
 COMMENT ON COLUMN public.stats.ishuman IS 'Describe si la sequencia es de un Humano';
 COMMENT ON COLUMN public.stats.ismutant IS 'Describe si la sequencia es de un Mutante';
