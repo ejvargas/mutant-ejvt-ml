@@ -156,25 +156,6 @@ Dudas Generadas
 
 
 
-## Quieres ejecutarlo localmente?
-
-**¨Procura tener Java, Maven y PostgreSQL instalados.**
-
-
-```sh
-$ git clone https://github.com/ejvargas/mutant-ejvt-ml.git
-$ cd mutant-ejvt-ml
-$ mvn clean install -DskipTests
-$ heroku local:start
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-If you're going to use a database, ensure you have a local `.env` file that reads something like this:
-
-```
-JDBC_DATABASE_URL=jdbc:postgresql://localhost:5432/java_database_name
-```
 
 ## Quieres desplegar el proyecto por en propia cuenta Heroku?
 Debes contar con una cuenta de Heroku (Hobby)
