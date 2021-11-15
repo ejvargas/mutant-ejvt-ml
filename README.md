@@ -197,12 +197,13 @@ Modificación de Variables](./docs/images/install_heroku_3.png)
 	* Copia el VALOR de la variable **DATABASE_URL** y pégalo en la variable **JDBC_DATABASE_URL**. Debes modificar la estructura para cambiar el protocolo “postgres://” por “postgresql://”. Es decir, debe quedar con la siguiente estructura:
 
 ```	
-			postgresql://USUARIO:PASSWORD@HOST:5432/DB_NAME
+	  postgresql://USUARIO:PASSWORD@HOST:5432/DB_NAME
 ```
 ![Modificación de Variables 2](./docs/images/install_heroku_4.png)
 
 6. [Paso Opcional] Si quieres tener habilitado el módulo de estadísticas, deberás ejecutar el Script **scripts/DDL Mutant Database.sql** para crear la tabla en la base de datos que Heroku aprovisionó para ti, usando los datos de conexión de la variable **JDBC_DATABASE_URL**.
 
+## Quieres Probar el API?
 #### Probando con Postman
 7. Mientras tanto puedes ir probando tu servicio desde esta colección de Postman1. Descárgala en [**postman/**] (https://github.com/ejvargas/mutant-ejvt-ml/tree/main/postman)
 8.	Modifica el valor de la variable dominio con el dominio que le asignó Heroku a tu aplicación (línea 150 del postman, mío es “ejvtmutant-pro.herokuapp.com”)
