@@ -206,11 +206,9 @@ Debes contar con una cuenta de Heroku (Hobby)
 
 ## Quieres Probar el API?
 #### Probando con Postman
-Necesitas descargar Postman
+Necesitas descargar [**Postman**](https://www.postman.com/downloads/)
 
-[**postman/**](https://www.postman.com/downloads/)
-
-1. Descarga esta colección Postman [**postman/ejvt-ml-mutant.postman_collection.json**](https://github.com/ejvargas/mutant-ejvt-ml/tree/main/postman/ejvt-ml-mutant.postman_collection.json)
+1. Descarga esta colección Postman del directorio [**postman/ejvt-ml-mutant.postman_collection.json**](https://github.com/ejvargas/mutant-ejvt-ml/tree/main/postman/ejvt-ml-mutant.postman_collection.json)
 2. Impórtala en tu Postman
 3. Modifica la colección con el dominio que desees utilizar. El tuyo, si hiciste los pasos de la sección **Quieres desplegar el proyecto por en propia cuenta Heroku?** o el mío que es el que viene por defecto (**ejvtmutant-pro.herokuapp.com**)
 
