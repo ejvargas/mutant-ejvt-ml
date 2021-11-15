@@ -176,13 +176,22 @@ If you're going to use a database, ensure you have a local `.env` file that read
 JDBC_DATABASE_URL=jdbc:postgresql://localhost:5432/java_database_name
 ```
 
-## Quieres desplegar el proyecto por en propia cuenta de Heroku?
+## Quieres desplegar el proyecto por en propia cuenta Heroku?
 Debes contar con una cuenta de Heroku (Hobby)
 
+#### Configurando
 1. Haz clic aquí [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+![ Creación de App Heroku](./docs/images/install_heroku_1.png)
+
 2. Escribe un nombre para tu app Heroku que esté disponible.
 3. Dar clic en el botón **Deploy App**
+![
+Fin Despliegue](./docs/images/install_heroku_2.png)
+
 4. Dar clic en el botón **Manage App**, en la pestaña **Settings** y en el botón **Reveal Config Vars**
+![
+Modificación de Variables](./docs/images/install_heroku_3.png)
+
 5. Modificar la conexion por defecto a la BD PostgreSQL
 	* Crea una nueva variable (KEY) llamada  **JDBC_DATABASE_URL**
 	* Copia el VALOR de la variable **DATABASE_URL** y pégalo en la variable **JDBC_DATABASE_URL**. Debes modificar la estructura para cambiar el protocolo “postgres://” por “postgresql://”. Es decir, debe quedar con la siguiente estructura:
@@ -190,7 +199,11 @@ Debes contar con una cuenta de Heroku (Hobby)
 ```	
 			postgresql://USUARIO:PASSWORD@HOST:5432/DB_NAME
 ```
+![Modificación de Variables 2](./docs/images/install_heroku_4.png)
+
 6. [Paso Opcional] Si quieres tener habilitado el módulo de estadísticas, deberás ejecutar el Script **scripts/DDL Mutant Database.sql** para crear la tabla en la base de datos que Heroku aprovisionó para ti, usando los datos de conexión de la variable **JDBC_DATABASE_URL**.
 
-7. Mientras tanto puedes ir probando tu servicio desde esta colección de Postman1.	Descárgala en [**postman/**] (https://github.com/ejvargas/mutant-ejvt-ml/tree/main/postman)
+#### Probando con Postman
+7. Mientras tanto puedes ir probando tu servicio desde esta colección de Postman1. Descárgala en [**postman/**] (https://github.com/ejvargas/mutant-ejvt-ml/tree/main/postman)
 8.	Modifica el valor de la variable dominio con el dominio que le asignó Heroku a tu aplicación (línea 150 del postman, mío es “ejvtmutant-pro.herokuapp.com”)
+![Modificación Postman](./docs/images/install_heroku_5.png)
