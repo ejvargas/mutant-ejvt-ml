@@ -165,7 +165,7 @@ Debes contar con una cuenta de [Heroku (Hobby)](https://signup.heroku.com/)
 
 ![Creación de App Heroku](./docs/images/install_heroku_1.png)
 
-2. Escribe un nombre para tu app Heroku que esté disponible.
+2. Escribe un nombre para tu app Heroku. Verifica que esté disponible.
 3. Dar clic en el botón **Deploy App**
 
 ![Fin Despliegue](./docs/images/install_heroku_2.png)
@@ -183,7 +183,7 @@ Debes contar con una cuenta de [Heroku (Hobby)](https://signup.heroku.com/)
 ```
 ![Modificación de Variables 2](./docs/images/install_heroku_4.png)
 
-6. [Paso Opcional] Si quieres tener habilitado el módulo de estadísticas, deberás ejecutar el Script **scripts/DDL Mutant Database.sql** para crear la tabla en la base de datos que Heroku aprovisionó para ti, usando los datos de conexión de la variable **JDBC_DATABASE_URL**.
+6. [Paso Opcional] Si quieres tener habilitado el módulo de estadísticas, deberás ejecutar el Script [**scripts/DDL Mutant Database.sql**](https://github.com/ejvargas/mutant-ejvt-ml/blob/main/scripts/DDL%20Mutant%20Database.sql) para crear la tabla en la base de datos que Heroku aprovisionó para ti, usando los datos de conexión de la variable **JDBC_DATABASE_URL**.
 
 ## Quieres Probar el API?
 #### Probando con Postman
