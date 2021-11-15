@@ -26,7 +26,8 @@ Estos están más desarrollados en el archivo envido, en resumen son los siguien
 * Anexar una base de datos, la cual guarde los ADN’s verificados con la API
 * Test-Automáticos, Code coverage > 80%.
 
----
+
+
 ## Solución
 ### Funcional
 La solución al cálculo de las secuencias la abordé de 2 formas:
@@ -118,6 +119,8 @@ Implicaciones:
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+* La base de datos utilizada es una BD ** PostgreSQL v13**. El script con la creación de la Base de datos se encuentra en la ruta **/scripts/DDL Mutant Database.sql**
+![Model Entidad-Relación Mutant BD](./docs/images/ER-BD Mutant.png)
 
 
 ##### Nivel 3
@@ -148,7 +151,7 @@ If you're going to use a database, ensure you have a local `.env` file that read
 JDBC_DATABASE_URL=jdbc:postgresql://localhost:5432/java_database_name
 ```
 
-## Desplegando en Heroku
+## Quieres ejecutarlo en Heroku?
 
 ```sh
 $ heroku create [YOUR_APP]
@@ -156,7 +159,7 @@ $ git push heroku main
 $ heroku open
 ```
 
-## Documentation
+## Más infor
 
 For more information about using Java on Heroku, see these Dev Center articles:
 
