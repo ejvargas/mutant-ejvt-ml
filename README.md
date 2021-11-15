@@ -109,8 +109,7 @@ Implicaciones:
 }
 ```
 
-* La clase **co.com.ejvt.ml.mutant.Utilidades.java** contiene un método utilitario con el objetivo de extraer el array de strings de la estructura JSON. Función **getJsonArray**
-	* Calcular el Hash de una cadena en SHA256
+* La clase **co.com.ejvt.ml.mutant.Utilidades.java** contiene un método utilitario con el objetivo de extraer el array de strings de la estructura JSON. Función **getJsonArray**.
 
 * El Proyecto se encuentra alojado en **GitHub**
 
@@ -132,7 +131,7 @@ Implicaciones:
 * La base de datos utilizada es una BD ** PostgreSQL v13**. El script con la creación de la Base de datos se encuentra en la ruta **/scripts/DDL Mutant Database.sql**
 ![Model Entidad-Relación Mutant BD](./docs/images/ER_BD_Mutant.png)
 
-* En la tabla **STATS** se encuentran los registros de las cadenas de ADN analizadas. Cada que se ejecuta un análisis, se ejecuta un **UPSERT** en la tabla, basado en el hash generado para una cadena única.
+* En la tabla **STATS** se encuentran los registros de las cadenas de ADN analizadas. Cada que se ejecuta un análisis, se ejecuta un **UPSERT** en la tabla, basado en el hash generado para una cadena única. Si la secuencia de ADN no se ha registrado, se inserta toda la información y el campo conteo se establece en 1. Si ya se encuentra registrada en la tabla (comparacion con el cambio **adnkey**), se actualiza el campo **conteo**
 
 * La clase **co.com.ejvt.ml.mutant.Utilidades.java** contiene un método utilitario con el objetivo de calcular el Hash de una cadena en SHA256. Función **stringInSHA**
 
@@ -146,13 +145,14 @@ Implicaciones:
 
 
 
-This application is based on the [Getting Started with Java on Heroku](https://devcenter.heroku.com/articles/getting-started-with-java) article - check it out.
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+
+
 
 ## Quieres ejecutarlo localmente?
 
-**Make sure you have Java and Maven installed.  Also, install the [Heroku CLI](https://cli.heroku.com/)**.
+**¨Procura tener Java, Maven y PostgreSQL instalados.**
 
 
 ```sh
