@@ -44,7 +44,7 @@ Implicaciones:
 
 Dudas Generadas
 
->> Una cadena de 5+ se considera como 1 secuencia o como 2+?
+>> Una cadena de +4 se considera como 1 secuencia o como +2?
 
 
 **Elegí irme con la Propuesta #2**, cómo la implementé?:
