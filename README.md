@@ -55,7 +55,7 @@ Implicaciones:
 	3. Se toma como referencia el tamaño de la primera cadena del array. Si es de 4 caracteres, se asume que la matriz es de 4x4. **Método paramValidations()**.
 
 
-### Técnica
+### Decisiones Técnicas
 ##### Nivel 1
 * Una Clase hecha en lenguaje Java (8), construida en un proyecto Maven. **Clase MutantAnalyzer.java**
 * Utilización de librería slf4j
@@ -109,6 +109,8 @@ Implicaciones:
 }
 ```
 
+* La clase **co.com.ejvt.ml.mutant.Utilidades.java** contiene un método utilitario con el objetivo de extraer el array de strings de la estructura JSON. Función **getJsonArray**
+	* Calcular el Hash de una cadena en SHA256
 
 * El Proyecto se encuentra alojado en **GitHub**
 
@@ -119,11 +121,27 @@ Implicaciones:
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+* Para los casos de prueba automáticos utilicé JUnit 5 y JaCoCo plugin. En la ruta "/src/test/java" se encuentra la clase "**co.com.ejvt.ml.mutant.ApiServiceTests.java**", al ejecutarla arroja cobertura de código del 86%
+
+* Para la identificación de vulnerabilidades, usé **SonarQube 9.1.0**, pasando on calificación AAA y cobertura de código del 86%
+![SonarQube Report](./docs/images/Sonar_last_test.png)
+
+##### Nivel 3
+
 * La base de datos utilizada es una BD ** PostgreSQL v13**. El script con la creación de la Base de datos se encuentra en la ruta **/scripts/DDL Mutant Database.sql**
 ![Model Entidad-Relación Mutant BD](./docs/images/ER_BD_Mutant.png)
 
+* En la tabla **STATS** se encuentran los registros de las cadenas de ADN analizadas. Cada que se ejecuta un análisis, se ejecuta un **UPSERT** en la tabla, basado en el hash generado para una cadena única.
 
-##### Nivel 3
+* La clase **co.com.ejvt.ml.mutant.Utilidades.java** contiene un método utilitario con el objetivo de calcular el Hash de una cadena en SHA256. Función **stringInSHA**
+
+* La clase **co.com.ejvt.ml.mutant.BDAccess.java** contiene los métodos de Creacion/Actualización de Análisis hechos **guardarAnalisisADN** y la consulta de Estadisticas **getStatistics** utilitario con el objetivo de calcular el Hash de una cadena en SHA256. Función **stringInSHA**
+
+###### Performance Fixes
+
+* Establecí que se utilice el mismo pool de conexiones para varias llamados a BD y evitar abrir una conexion por cada invocación. Además, reduje el parámetro `setMaxLifetime` de la conexión a 1000ms, para asegurar que el pool no se rebose
+
+* Inicialmente, para la extraccion de estadisticas, estaba consultando la BD 2 veces: una para el conteo de mutantes y otra para el de humanos. Lo unifiqué en un solo script que une ambas consultas. Métodos utilizados previamente: getSumMutants() y getSumHumans()
 
 
 
