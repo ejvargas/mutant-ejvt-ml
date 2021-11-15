@@ -124,6 +124,7 @@ Implicaciones:
 * Para los casos de prueba automáticos utilicé JUnit 5 y JaCoCo plugin. En la ruta "/src/test/java" se encuentra la clase "**co.com.ejvt.ml.mutant.ApiServiceTests.java**", al ejecutarla arroja cobertura de código del 86%
 
 * Para la identificación de vulnerabilidades, usé **SonarQube 9.1.0**, pasando on calificación AAA y cobertura de código del 86%
+
 ![SonarQube Report](./docs/images/Sonar_last_test.png)
 
 ##### Nivel 3
