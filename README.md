@@ -41,6 +41,12 @@ Implicaciones:
 
 ![Propuesta #1 vs Propuesta #2](./docs/images/Pro1vsPro2.png)
 
+
+Dudas Generadas
+
+>> Una cadena de 5+ se considera como 1 secuencia o como 2+?
+
+
 **Elegí irme con la Propuesta #2**, cómo la implementé?:
 
 1. Elaboré 4 funciones que recorren la matriz NxN, en cada una de las direcciones identificadas (horizontales, verticales, oblicuas con pendiente positiva y oblicuas con pendiente negativa). **Clase MutantAnalyzer.java**
