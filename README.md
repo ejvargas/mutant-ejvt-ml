@@ -181,16 +181,17 @@ Debes contar con una cuenta de Heroku (Hobby)
 
 #### Configurando
 1. Haz clic aquí [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-![ Creación de App Heroku](./docs/images/install_heroku_1.png)
+
+![Creación de App Heroku](./docs/images/install_heroku_1.png)
 
 2. Escribe un nombre para tu app Heroku que esté disponible.
 3. Dar clic en el botón **Deploy App**
-![
-Fin Despliegue](./docs/images/install_heroku_2.png)
+
+![Fin Despliegue](./docs/images/install_heroku_2.png)
 
 4. Dar clic en el botón **Manage App**, en la pestaña **Settings** y en el botón **Reveal Config Vars**
-![
-Modificación de Variables](./docs/images/install_heroku_3.png)
+
+![Modificación de Variables](./docs/images/install_heroku_3.png)
 
 5. Modificar la conexion por defecto a la BD PostgreSQL
 	* Crea una nueva variable (KEY) llamada  **JDBC_DATABASE_URL**
@@ -205,6 +206,7 @@ Modificación de Variables](./docs/images/install_heroku_3.png)
 
 ## Quieres Probar el API?
 #### Probando con Postman
-7. Mientras tanto puedes ir probando tu servicio desde esta colección de Postman1. Descárgala en [**postman/**] (https://github.com/ejvargas/mutant-ejvt-ml/tree/main/postman)
-8.	Modifica el valor de la variable dominio con el dominio que le asignó Heroku a tu aplicación (línea 150 del postman, mío es “ejvtmutant-pro.herokuapp.com”)
+Necesitas descargar Postman
+1. Descarga esta colección Postman "ejvt-ml-mutant.postman_collection.json". Descárgala en [**postman/**](https://github.com/ejvargas/mutant-ejvt-ml/tree/main/postman)
+2.	Modifica el valor de la variable dominio con el dominio que le asignó Heroku a tu aplicación (línea 150 del postman, mío es “ejvtmutant-pro.herokuapp.com”)
 ![Modificación Postman](./docs/images/install_heroku_5.png)
