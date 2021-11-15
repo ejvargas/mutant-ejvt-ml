@@ -157,7 +157,7 @@ Dudas Generadas
 
 
 
-## Quieres desplegar el proyecto por en propia cuenta Heroku?
+## Quieres desplegar este proyecto en tu propia cuenta Heroku?
 Debes contar con una cuenta de [Heroku (Hobby)](https://signup.heroku.com/)
 
 #### Configurando
