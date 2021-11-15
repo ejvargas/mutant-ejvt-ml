@@ -28,14 +28,13 @@ Estos están más desarrollados en el archivo envido, en resumen son los siguien
 
 ---
 ## Solución
-El proyecto se divide en 3 requerimientos entregables en el c
 ### Funcional
 La solución al cálculo de las secuencias la abordé de 2 formas:
 
 **Propuesta 1.** Recorrer la matriz en cada una de las posiciones y verificar el vector de cada una de sus direcciones y sentidos.
-Implicaciones: 
->>	1. Habrían posiciones que no permiten el cálculo de todos sus vectores (zona naranja), por lo tanto dependiendo de la posición, algunos vectores no podrían calcularse. **Por ejemplo**: para la posición [1,1], solo se pueden calcular los vectores con sentido hacia el Este, Sur-Este y Sur.
->>	2. Habría que implementar un mecanismo de duplicados, ya que trata cada posicion en la matriz de forma independiente.
+Implicaciones:
+1. Habrían posiciones que no permiten el cálculo de todos sus vectores (zona naranja), por lo tanto dependiendo de la posición, algunos vectores no podrían calcularse. **Por ejemplo**: para la posición [1,1], solo se pueden calcular los vectores con sentido hacia el Este, Sur-Este y Sur.
+2. Habría que implementar un mecanismo de duplicados, ya que trata cada posicion en la matriz de forma independiente.
 
 **Propuesta 2.** Recorrer la matriz por filas (horizontalmente), por columnas (verticalmente), por sus oblicuas de pendiente positiva y sus oblicuas de pendiente negativa. De esta forma podría cubrir todos los sentidos que solicita el requerimiento
 
@@ -49,7 +48,7 @@ Implicaciones:
 
 3. La **función isMutant** lo que hace es recibir el parámetro (Array) o tomarlo del constructor de la clase (para el caso en que sea invocado desde el API); hace cada uno de los recorridos, suma lo que devolvió cada uno de esos recorridos y basado en el número mínimo de secuencias para ser mutante (2) en la varibale (`numeroDeSecuenciasParaSerMutante`) responde falso o verdadero. Por último imprime por consola la matriz y el resumen de lo que encontró en cada recorrido. **Método mostrarResumen()**.
 
-3. Antes de hacer los recorridos se valida que la matriz esté correctamente formada:
+4. Antes de hacer los recorridos se valida que la matriz esté correctamente formada:
 	1. No esté vacía o nula
 	2. Filas (# de cadenas dentro del array) y columnas (# de caracteres dentro de cada cadena dentro del array) sean la misma cantidad.
 	3. Se toma como referencia el tamaño de la primera cadena del array. Si es de 4 caracteres, se asume que la matriz es de 4x4. **Método paramValidations()**.
@@ -64,8 +63,8 @@ Implicaciones:
 ##### Nivel 2
 * La implementación de una clase de tipo Spring Boot Application. **Clase ApiService.java**
 * Los métodos de esa clase exponen cada uno de los recursos REST que requerimos: 
-
->> Método mutant (*/mutant*) - Interfaz REST para extender la funcionalidad de la clase *MutantAnalyzer.java*. El parámetro es una estructura JSON con una pareja "adn" y como valor, el array que se le va a pasar a MutantAnalyzer. La respuesta es HTTP 200-OK en caso de ser mutante y 403-Forbidden en caso de no serlo. Además devuelve en el cuerpo de la respuesta REST, una estructura JSON con el siguiente formato
+	
+	+ Método mutant (*/mutant*) - Interfaz REST para extender la funcionalidad de la clase *MutantAnalyzer.java*. El parámetro es una estructura JSON con una pareja "adn" y como valor, el array que se le va a pasar a MutantAnalyzer. La respuesta es HTTP 200-OK en caso de ser mutante y 403-Forbidden en caso de no serlo. Además devuelve en el cuerpo de la respuesta REST, una estructura JSON con el siguiente formato
 
 ```
 {
@@ -76,9 +75,7 @@ Implicaciones:
     "oblicuas_negativas" = 1
 }
 ```
-
-
->> Método statistics (*/stats*) - Interfaz REST para obtener la cantidad de analisis que se han hecho con resultados humanos, mutantes y su proporción. La respuesta es HTTP 200-OK con la siguiente estructura
+	+ Método statistics (*/stats*) - Interfaz REST para obtener la cantidad de analisis que se han hecho con resultados humanos, mutantes y su proporción. La respuesta es HTTP 200-OK con la siguiente estructura
 
 ```
 {
@@ -88,7 +85,7 @@ Implicaciones:
 }
 ```
 
->> Método random (*/random*)* - Interfaz REST que genera una estructura JSON con secuencias aleatorias de ADN, para que puedan ser utilizadas en el recurso Mutant. El valor por defecto es 4, pero si se establece el parámetro "tamanho", se devolverá una matriz de ese tamanho
+	+ Método random (*/random*)* - Interfaz REST que genera una estructura JSON con secuencias aleatorias de ADN, para que puedan ser utilizadas en el recurso Mutant. El valor por defecto es 4, pero si se establece el parámetro "tamanho", se devolverá una matriz de ese tamanho
 
 ```
 {
@@ -105,12 +102,15 @@ Implicaciones:
 }
 ```
 
+* El Proyecto se encuentra alojado en **GitHub**
+
 * Elegí **Heroku** como plataforma para ejecutar mi proyecto en producción, ya que me permite:
-	* Provisionar fácilmente un contenedor 
-	* Me entrega una base de datos PostgreSQL, lista para su uso
-	* Vinculación del código fuente en **GitHub**, para despliegues automáticos
+		* Provisionar fácilmente un contenedor 
+		* Me entrega una base de datos PostgreSQL, lista para su uso
+		* Vinculación del código fuente en **GitHub**, para despliegues automáticos
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 
 
 ##### Nivel 3
