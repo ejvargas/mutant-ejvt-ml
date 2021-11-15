@@ -38,7 +38,7 @@ Implicaciones:
 
 **Propuesta 2.** Recorrer la matriz por filas (horizontalmente), por columnas (verticalmente), por sus oblicuas de pendiente positiva y sus oblicuas de pendiente negativa. De esta forma podría cubrir todos los sentidos que solicita el requerimiento
 
-![Propuesta #1 vs Propuesta #2](./docs/images/p1vsp2.png)
+![Propuesta #1 vs Propuesta #2](./docs/images/Pro1vsPro2.png)
 
 **Elegí irme con la Propuesta #2**, cómo la implementé?:
 
