@@ -112,9 +112,9 @@ Implicaciones:
 * El Proyecto se encuentra alojado en **GitHub**
 
 * Elegí **Heroku** como plataforma para ejecutar mi proyecto en producción, ya que me permite:
-		* Provisionar fácilmente un contenedor 
-		* Me entrega una base de datos PostgreSQL, lista para su uso
-		* Vinculación del código fuente en **GitHub**, para despliegues automáticos
+	* Provisionar fácilmente un contenedor 
+	* Me entrega una base de datos PostgreSQL, lista para su uso
+	* Vinculación del código fuente en **GitHub**, para despliegues automáticos
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
