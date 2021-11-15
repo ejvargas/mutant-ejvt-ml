@@ -207,6 +207,27 @@ Debes contar con una cuenta de Heroku (Hobby)
 ## Quieres Probar el API?
 #### Probando con Postman
 Necesitas descargar Postman
-1. Descarga esta colección Postman "ejvt-ml-mutant.postman_collection.json". Descárgala en [**postman/**](https://github.com/ejvargas/mutant-ejvt-ml/tree/main/postman)
-2.	Modifica el valor de la variable dominio con el dominio que le asignó Heroku a tu aplicación (línea 150 del postman, mío es “ejvtmutant-pro.herokuapp.com”)
-![Modificación Postman](./docs/images/install_heroku_5.png)
+
+[**postman/**](https://www.postman.com/downloads/)
+
+1. Descarga esta colección Postman [**postman/ejvt-ml-mutant.postman_collection.json**](https://github.com/ejvargas/mutant-ejvt-ml/tree/main/postman/ejvt-ml-mutant.postman_collection.json)
+2. Impórtala en tu Postman
+3. Modifica la colección con el dominio que desees utilizar. El tuyo, si hiciste los pasos de la sección **Quieres desplegar el proyecto por en propia cuenta Heroku?** o el mío que es el que viene por defecto (**ejvtmutant-pro.herokuapp.com**)
+
+![Modificación Variable Dominio](./docs/images/install_postman_1.png)
+
+4. Ejecuta el *Request* **ADN Mutant -prod** con un JSON válido. *Si quieres generar uno de prueba, mira el **paso 7***
+
+![Ejecución Prueba Mutante](./docs/images/install_postman_2.png)
+
+5. Ejecuta el *Request* **ADN Human -prod** con un JSON válido. *Si quieres generar uno de prueba, mira el **paso 7***
+
+![Ejecución Prueba Mutante](./docs/images/install_postman_3.png)
+
+6. Ejecuta el *Request* **Statistics -prod**
+
+![Ejecución Prueba Mutante](./docs/images/install_postman_5.png)
+
+7. Ejecuta el *Request* **Generate Random ADN -prod**. Puedes establecer el tamaño de la matriz cambiandole la cantidad al parámetro **"tamanho"**
+
+![Ejecución Prueba Mutante](./docs/images/install_postman_5.png)
