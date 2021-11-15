@@ -13,7 +13,7 @@ Este proyecto es la solución propuesta para el análisis de secuencias de ADN, 
 ##### Ejemplo
 * Para el array:
 
-				String[] dna = {"ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
+		String[] dna = {"ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
 
 * La función isMutant(dna) devuelve "**true**".
 * Desarrolla el algoritmo de la manera más eficiente posible.
