@@ -120,7 +120,7 @@ Implicaciones:
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 * La base de datos utilizada es una BD ** PostgreSQL v13**. El script con la creación de la Base de datos se encuentra en la ruta **/scripts/DDL Mutant Database.sql**
-![Model Entidad-Relación Mutant BD](./docs/images/ER-BD Mutant.png)
+![Model Entidad-Relación Mutant BD](./docs/images/ER_BD_Mutant.png)
 
 
 ##### Nivel 3
