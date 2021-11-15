@@ -23,7 +23,3 @@ COMMENT ON COLUMN public.stats.adnsequence IS 'Sequencia de ADN';
 COMMENT ON COLUMN public.stats.ishuman IS 'Describe si la sequencia es de un Humano';
 COMMENT ON COLUMN public.stats.ismutant IS 'Describe si la sequencia es de un Mutante';
 COMMENT ON COLUMN public.stats.conteo IS 'Numero de veces que se ha ejecutado el analisis para la secuencia';
-
--- Permissions
-ALTER TABLE public.stats OWNER TO [PUT_YOUR_USER_HERE];
-GRANT ALL ON TABLE public.stats TO [PUT_YOUR_USER_HERE];
