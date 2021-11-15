@@ -215,7 +215,7 @@ Necesitas descargar [**Postman**](https://www.postman.com/downloads/)
 
 #### Probando con cUrl
 
-1. Para probar el recurso REST **/mutant**, con una secuencia de ADN de Mutante, puedes utilizar este comando cUrl:
+1. Para probar el recurso REST **/mutant**, con una secuencia de ADN de MUTANTE, puedes utilizar este comando cUrl:
 
 ```
 curl --location --request POST 'https://ejvtmutant-pro.herokuapp.com/mutant' \
@@ -232,7 +232,7 @@ curl --location --request POST 'https://ejvtmutant-pro.herokuapp.com/mutant' \
 }'
 ```
 
-2. Para probar el recurso REST **/mutant**, con una secuencia de ADN de Mutante, puedes utilizar este comando cUrl:
+2. Para probar el recurso REST **/mutant**, con una secuencia de ADN de HUMANO, puedes utilizar este comando cUrl:
 
 ```
 curl --location --request POST 'https://ejvtmutant-pro.herokuapp.com/mutant' \
@@ -242,8 +242,8 @@ curl --location --request POST 'https://ejvtmutant-pro.herokuapp.com/mutant' \
         "TTGCGA",
         "CAGTGC",
         "TTATGT",
-        "AGAAGG",
-        "CACCTA",
+        "AGTAGG",
+        "CCACTA",
         "TCACTG"
     ]
 }'
