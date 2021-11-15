@@ -12,6 +12,7 @@ public class VTRandomMatrix {
 
 	static Logger logger = LoggerFactory.getLogger(VTRandomMatrix.class);
 
+	/* Método desde el cual se obtiene una Matriz NxN de acuerdo al parámetro */
 	@Bean
 	public String getRandomMatrixInJson(int tamanho) {
 		StringBuilder sb = new StringBuilder();
@@ -23,6 +24,10 @@ public class VTRandomMatrix {
 		return String.format("{ \"dna\" : [ %s ] }", cortado);
 	}
 
+	/*
+	 * Método desde el cual se obtiene una Secuencia de NxN caracteres, de acuerdo
+	 * al parámetro
+	 */
 	private String getRandomSequence(int tamanho) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i <= tamanho; i++) {
@@ -30,9 +35,10 @@ public class VTRandomMatrix {
 		}
 		return sb.toString();
 	}
-
+	
+	/* Método desde el cual se obtiene de forma aleatoria, una letra de las que se encuentran en el dominio*/
 	private String getRandomLetter() {
-		String[] dominio = {"A", "C", "G", "T"};
+		String[] dominio = { "A", "C", "G", "T" };
 		int index = 0;
 		Random random;
 		try {
@@ -41,7 +47,7 @@ public class VTRandomMatrix {
 		} catch (NoSuchAlgorithmException e) {
 			logger.warn(String.format("Error en la generación de Random: %s", e.getMessage()));
 		}
-		
+
 		return dominio[index];
 	}
 

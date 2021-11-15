@@ -8,7 +8,7 @@ public class MutantAnalyzer {
 
 	Logger logger = LoggerFactory.getLogger(MutantAnalyzer.class);
 	org.slf4j.Marker marker;
-	
+
 	public int getCantidadSecuenciasHorizontal() {
 		return cantidadSecuenciasHorizontal;
 	}
@@ -37,20 +37,31 @@ public class MutantAnalyzer {
 			: Integer.parseInt(System.getenv().get("SECUENCIA_PARA_SER_MUTANTE"));
 	String caracteresValidos = System.getenv().get("CARACTERES_VALIDOS") == null ? "ACGT"
 			: System.getenv().get("CARACTERES_VALIDOS");
-	
+
 	String[] arrayWorking = null;
 
 	public static void main(String[] args) {
-		String[] dna = { "CTGCGA", "CAGTAC", "TTGAGT", "AGAGGG", "CACCGA", "TCACTG" };
+		String[] dna = { "CTGCGA", "CAGTAC", "TTGAGT", "AGAGGG", "CCTCGA", "TCACTG" };
 		(new MutantAnalyzer(dna)).isMutant();
 	}
-	
+
 	@Autowired
 	public MutantAnalyzer(String[] array) {
 		paramValidations(array);
 		arrayWorking = array;
 	}
 
+	/*
+	 * 
+	 * Antes de hacer los recorridos se valida que la matriz esté correctamente
+	 * formada:
+	 * 
+	 * 1. No esté vacía o nula 2. Filas (# de cadenas dentro del array) y columnas
+	 * (# de caracteres dentro de cada cadena dentro del array) sean la misma
+	 * cantidad. 3. Se toma como referencia el tamaño de la primera cadena del
+	 * array. Si es de 4 caracteres, se asume que la matriz es de 4x4.
+	 * 
+	 */
 	@Autowired
 	private void paramValidations(String[] array) {
 
@@ -78,6 +89,15 @@ public class MutantAnalyzer {
 		}
 	}
 
+	/*
+	 * Metodo para lo que hace es recibir el parámetro (Array) o tomarlo del
+	 * constructor de la clase (para el caso en que sea invocado desde el API); hace
+	 * cada uno de los recorridos, suma lo que devolvió cada uno de esos recorridos
+	 * y basado en el número mínimo de secuencias para ser mutante (2) en la
+	 * varibale (numeroDeSecuenciasParaSerMutante) responde falso o verdadero. Por
+	 * último imprime por consola la matriz y el resumen de lo que encontró en cada
+	 * recorrido.
+	 */
 	@Autowired
 	public boolean isMutant() {
 		if (tamanhoReferencia < secuenciaDeIguales)
@@ -88,12 +108,27 @@ public class MutantAnalyzer {
 		cantidadSecuenciasOblicuasPositivas = recorrerOblicuasPositivas();
 		cantidadSecuenciasOblicuasNegativas = recorrerOblicuasNegativas();
 
-		mostrarResumen(cantidadSecuenciasHorizontal, cantidadSecuenciasVertical, cantidadSecuenciasOblicuasPositivas, cantidadSecuenciasOblicuasNegativas);
+		mostrarResumen(cantidadSecuenciasHorizontal, cantidadSecuenciasVertical, cantidadSecuenciasOblicuasPositivas,
+				cantidadSecuenciasOblicuasNegativas);
 
 		return (cantidadSecuenciasHorizontal + cantidadSecuenciasVertical + cantidadSecuenciasOblicuasPositivas
 				+ cantidadSecuenciasOblicuasNegativas >= numeroDeSecuenciasParaSerMutante);
 	}
 
+	@Autowired
+	public boolean isMutant(String[] array) {
+		this.paramValidations(array);
+		return this.isMutant();
+	}
+
+	/*
+	 * Esta funcion tiene como objetivo recorrer el array parámetro de forma
+	 * HORIZONTAL, toma la cadena de la posicion fila y la subcadena de la posicion
+	 * columna y en su recorrido va guardando su anterior posición; cuando encuentra
+	 * 4 de ellas (secuenciaDeIguales), la acumula como una secuencia encontrada
+	 * (contadorSecuencia). Cuando termina el recorrido, devuelve el conteo de
+	 * secuencias encontradas
+	 */
 	@Autowired
 	private int recorrerHorizontal() {
 		int contadorSecuenciasH = 0;
@@ -122,6 +157,14 @@ public class MutantAnalyzer {
 		return contadorSecuenciasH;
 	}
 
+	/*
+	 * Esta funcion tiene como objetivo recorrer el array parámetro de forma
+	 * VERTICAL, toma la cadena de la posicion fila y la subcadena de la posicion
+	 * columna y en su recorrido va guardando su anterior posición; cuando encuentra
+	 * 4 de ellas (secuenciaDeIguales), la acumula como una secuencia encontrada
+	 * (contadorSecuencia). Cuando termina el recorrido, devuelve el conteo de
+	 * secuencias encontradas
+	 */
 	@Autowired
 	private int recorrerVertical() {
 		int contadorSecuenciasV = 0;
@@ -150,6 +193,14 @@ public class MutantAnalyzer {
 
 	}
 
+	/*
+	 * Esta funcion tiene como objetivo recorrer el array parámetro de forma OBLICUA
+	 * PARA PENDIENTES POSITIVAS, toma la cadena de la posicion fila y la subcadena
+	 * de la posicion columna y en su recorrido va guardando su anterior posición;
+	 * cuando encuentra 4 de ellas (secuenciaDeIguales), la acumula como una
+	 * secuencia encontrada (contadorSecuencia). Cuando termina el recorrido,
+	 * devuelve el conteo de secuencias encontradas
+	 */
 	@Autowired
 	private int recorrerOblicuasPositivas() {
 		int contadorSecuenciasOP = 0;
@@ -206,6 +257,14 @@ public class MutantAnalyzer {
 
 	}
 
+	/*
+	 * Esta funcion tiene como objetivo recorrer el array parámetro de forma OBLICUA
+	 * PARA PENDIENTES NEGATIVAS, toma la cadena de la posicion fila y la subcadena
+	 * de la posicion columna y en su recorrido va guardando su anterior posición;
+	 * cuando encuentra 4 de ellas (secuenciaDeIguales), la acumula como una
+	 * secuencia encontrada (contadorSecuencia). Cuando termina el recorrido,
+	 * devuelve el conteo de secuencias encontradas
+	 */
 	@Autowired
 	private int recorrerOblicuasNegativas() {
 		int contadorSecuenciasON = 0;
@@ -261,6 +320,7 @@ public class MutantAnalyzer {
 		return contadorSecuenciasON;
 	}
 
+	/* Este método imprime el resumen de una ejecución de análisis de ADN mutante*/
 	@Autowired
 	private void mostrarResumen(int secHorizontal, int secVertical, int secOblicuasPositivas,
 			int secOblicuasNegativas) {

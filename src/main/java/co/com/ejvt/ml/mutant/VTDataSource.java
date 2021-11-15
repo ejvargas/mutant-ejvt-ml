@@ -31,6 +31,7 @@ public class VTDataSource {
 	private VTDataSource() {
 	}
 
+	/* Metodo para la obtención de la conexión a Base de Datos, basada en la configuracion de variables de entorno de Heroku*/
 	@Bean(name = "getConnection")
 	public static Connection getConnection() throws SQLException {
 		if (!ds.isClosed()) {

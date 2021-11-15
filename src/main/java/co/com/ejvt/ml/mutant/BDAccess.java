@@ -17,6 +17,14 @@ public class BDAccess {
 	private String sqlSumMutants = "select SUM(conteo) as \"SUMA\" from STATS where ismutant;";
 	private String sqlSumJoint = "select (select coalesce(sum(conteo), 0)  from STATS where ishuman) as \"Humans\", (select coalesce(sum(conteo), 0)  from STATS where ismutant) as \"Mutants\";";
 
+	/*
+	 * Creacion/Actualización (UPSERT)de Análisis hechos guardarAnalisisADN. Cada
+	 * que se ejecuta un análisis, se ejecuta un UPSERT en la tabla, basado en el
+	 * hash generado para una cadena única. Si la secuencia de ADN no se ha
+	 * registrado, se inserta toda la información y el campo conteo se establece en
+	 * 1. Si ya se encuentra registrada en la tabla (comparacion con el cambio
+	 * adnkey), se actualiza el campo conteo.
+	 */
 	@Bean
 	public boolean guardarAnalisisADN(String adn, boolean isMutant) {
 		String hashedADN;
@@ -37,6 +45,10 @@ public class BDAccess {
 		return false;
 	}
 
+	/*
+	 * Consulta a BD para obtener la cantidad de analisis que se han hecho con
+	 * resultados humanos, mutantes y su proporción.
+	 */
 	@Bean
 	public int[] getStatistics() {
 		int[] statistics = new int[2];
@@ -59,6 +71,10 @@ public class BDAccess {
 		return statistics;
 	}
 
+	/*
+	 * Consulta a BD para obtener la cantidad de analisis que se han hecho con
+	 * resultados humanos.
+	 */
 	@Bean
 	public int getSumHumans() {
 		int suma = 0;
@@ -80,6 +96,8 @@ public class BDAccess {
 		return suma;
 	}
 
+	/* Consulta a BD para obtener la cantidad de analisis que se han hecho con
+	 * resultados mutantes.*/
 	@Bean
 	public int getSumMutants() {
 		int suma = 0;

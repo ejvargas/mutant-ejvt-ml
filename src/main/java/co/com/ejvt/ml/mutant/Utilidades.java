@@ -17,9 +17,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 public class Utilidades {
-	
+
 	Logger logger = LoggerFactory.getLogger(Utilidades.class);
 
+	/*
+	 * Método utilitario con el objetivo de extraer el array de strings de la
+	 * estructura JSON
+	 */
 	@Bean
 	public String[] getJsonArray(String bodyRest) {
 		String[] arrayADN = {};
@@ -44,6 +48,9 @@ public class Utilidades {
 		return arrayADN;
 	}
 
+	/*
+	 * Método utilitario con el objetivo de calcular el Hash de una cadena en SHA256
+	 */
 	@Bean
 	public String stringInSHA(String cadena) {
 		return Hashing.sha256().hashString(cadena, StandardCharsets.UTF_8).toString();
