@@ -229,3 +229,53 @@ Necesitas descargar [**Postman**](https://www.postman.com/downloads/)
 7. Ejecuta el *Request* **Generate Random ADN -prod**. Puedes establecer el tamaño de la matriz cambiandole la cantidad al parámetro **"tamanho"**
 
 ![Ejecución Prueba Mutante](./docs/images/install_postman_5.png)
+
+
+
+#### Probando con cUrl
+
+1. Para probar el recurso REST **/mutant**, con una secuencia de ADN de Mutante, puedes utilizar este comando cUrl:
+
+```
+curl --location --request POST 'https://ejvtmutant-pro.herokuapp.com/mutant' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "dna": [
+        "ATGCGA",
+        "CAGTGC",
+        "TTATGT",
+        "AGAAGG",
+        "CCCCTA",
+        "TCACTG"
+    ]
+}'
+```
+
+2. Para probar el recurso REST **/mutant**, con una secuencia de ADN de Mutante, puedes utilizar este comando cUrl:
+
+```
+{
+    "dna": [
+        "TTGCGA",
+        "CAGTGC",
+        "TTATGT",
+        "AGAAGG",
+        "CACCTA",
+        "TCACTG"
+    ]
+}
+```
+
+
+3. Para probar el recurso REST **/stats** puedes utilizar este comando cUrl:
+
+```
+curl --location --request GET 'https://ejvtmutant-pro.herokuapp.com/stats'
+```
+
+
+4. Para probar el recurso REST **/random** puedes utilizar este comando cUrl:
+
+```
+curl --location --request GET 'https://ejvtmutant-pro.herokuapp.com/random?tamanho=6'
+```
