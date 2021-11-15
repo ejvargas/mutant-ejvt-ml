@@ -254,7 +254,9 @@ curl --location --request POST 'https://ejvtmutant-pro.herokuapp.com/mutant' \
 2. Para probar el recurso REST **/mutant**, con una secuencia de ADN de Mutante, puedes utilizar este comando cUrl:
 
 ```
-{
+curl --location --request POST 'https://ejvtmutant-pro.herokuapp.com/mutant' \
+--header 'Content-Type: application/json' \
+--data-raw '{
     "dna": [
         "TTGCGA",
         "CAGTGC",
@@ -263,16 +265,14 @@ curl --location --request POST 'https://ejvtmutant-pro.herokuapp.com/mutant' \
         "CACCTA",
         "TCACTG"
     ]
-}
+}'
 ```
-
 
 3. Para probar el recurso REST **/stats** puedes utilizar este comando cUrl:
 
 ```
 curl --location --request GET 'https://ejvtmutant-pro.herokuapp.com/stats'
 ```
-
 
 4. Para probar el recurso REST **/random** puedes utilizar este comando cUrl:
 
