@@ -65,6 +65,7 @@ Implicaciones:
 * Los métodos de esa clase exponen cada uno de los recursos REST que requerimos: 
 	
 	+ Método mutant (*/mutant*) - Interfaz REST para extender la funcionalidad de la clase *MutantAnalyzer.java*. El parámetro es una estructura JSON con una pareja "adn" y como valor, el array que se le va a pasar a MutantAnalyzer. La respuesta es HTTP 200-OK en caso de ser mutante y 403-Forbidden en caso de no serlo. Además devuelve en el cuerpo de la respuesta REST, una estructura JSON con el siguiente formato
+	
 
 ```
 {
@@ -75,7 +76,10 @@ Implicaciones:
     "oblicuas_negativas" = 1
 }
 ```
+
+
 	+ Método statistics (*/stats*) - Interfaz REST para obtener la cantidad de analisis que se han hecho con resultados humanos, mutantes y su proporción. La respuesta es HTTP 200-OK con la siguiente estructura
+
 
 ```
 {
@@ -85,7 +89,9 @@ Implicaciones:
 }
 ```
 
+
 	+ Método random (*/random*)* - Interfaz REST que genera una estructura JSON con secuencias aleatorias de ADN, para que puedan ser utilizadas en el recurso Mutant. El valor por defecto es 4, pero si se establece el parámetro "tamanho", se devolverá una matriz de ese tamanho
+
 
 ```
 {
@@ -101,6 +107,7 @@ Implicaciones:
     ]
 }
 ```
+
 
 * El Proyecto se encuentra alojado en **GitHub**
 
